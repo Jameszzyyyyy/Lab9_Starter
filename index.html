@@ -87,21 +87,134 @@
     </section>
   </main>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
   <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "e95327d526be4afaa4b4dc3b32137cdf"
+    // for more configuration options, see https://docs.trackjs.com
+    });
+                        
+
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
-      e.preventDefault();
-      let output = document.querySelector('output');
-      let firstNum = document.querySelector('#first-num').value;
-      let secondNum = document.querySelector('#second-num').value;
-      let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      try{
+        e.preventDefault();
+        let output = document.querySelector('output');
+        let firstNum = document.querySelector('#first-num').value;
+        let secondNum = document.querySelector('#second-num').value;
+        let operator = document.querySelector('#operator').value;
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      }
+      catch(except){
+        console.log("Nope!!!");
+        throw new CustomError("Bad Input");
+      }
+      finally{
+        console.log("Resolved");
+      };
     });
+
+    
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
     // Start your code here
     // You may move this JS to another file if you wish
+
+    // Log Button Functionality
+    errorBtns[0].addEventListener("click", function(){ 
+      console.log("Console Log");
+    });
+
+    // Error Button Functionality
+    errorBtns[1].addEventListener("click", function(){ 
+      console.error("Error Button");
+    });
+
+    // Counter Button Functionality
+    errorBtns[2].addEventListener("click", function(){ 
+      console.count("Count Button");
+    });
+
+    // Warning Button Functionality
+    errorBtns[3].addEventListener("click", function(){ 
+      console.warn("Warning!!!");
+    });
+
+    // Assertion Button Functionality
+    errorBtns[4].addEventListener("click", function(){ 
+      const x = 5;
+      const y = 3;
+      const reason = 'x is expected to be less than y';
+      console.assert(x < y, {x, y, reason});
+    });
+
+    // Clear Button Functionality
+    errorBtns[5].addEventListener("click", function(){ 
+      console.clear();
+    });
+
+    // Dir Button Functionality
+    errorBtns[6].addEventListener("click", function(){ 
+      console.dir(document.head);
+    });
+
+    // Dir XML Button Functionality
+    errorBtns[7].addEventListener("click", function(){ 
+      console.dirxml(document);
+    });
+
+    // Group Entry Button Functionality
+    errorBtns[8].addEventListener("click", function(){ 
+      console.group();
+    });
+
+    // Group Exit Button Functionality
+    errorBtns[9].addEventListener("click", function(){ 
+      console.groupEnd();
+    });
+
+    // Table Button Functionality
+    errorBtns[10].addEventListener("click", function(){ 
+      const example = [
+        ["1", "2"],
+        ["3", "4"],
+        ["5", "6"],
+      ];
+      console.table(example)  
+    });
+
+    // Timer Start Button Functionality
+    errorBtns[11].addEventListener("click", function(){ 
+      console.time("Timer");
+      console.log("Timer Started");
+    });
+
+    // Timer Stop Button Functionality
+    errorBtns[12].addEventListener("click", function(){ 
+      console.timeEnd("Timer");
+    });
+
+    // Trace Button Functionality
+    errorBtns[13].addEventListener("click", function(){ 
+      console.trace();
+    });
+
+    // Global Error Functionality
+    errorBtns[14].addEventListener("click", function(){ 
+      boom();
+    });
+
+    
+
+    class CustomError extends Error {
+      constructor(errorMess) {
+        super("There has been an Error : " + errorMess);
+        this.name = this.constructor.name;
+      }
+    }
+
+    TrackJS.track('Testing TrackJS!');
   </script>
 </body>
 
